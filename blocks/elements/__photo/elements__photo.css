@@ -1,0 +1,7 @@
+.elements__photo {
+    object-fit: cover;
+    width: 100%;
+    border: 0;
+    border-radius: 10px 10px 0 0;
+    display: block;
+}
