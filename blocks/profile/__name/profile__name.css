@@ -12,6 +12,7 @@
 
 @media all and (max-width: 765px) {
     .profile__name {
+        max-width: 200px;
         font-size: 27px;
         line-height: 33px;
     }
@@ -20,6 +21,5 @@
 @media all and (max-width: 610px) {
     .profile__name {
         margin: 0 10px 12px 0;
-        max-height: 26px;
     }
 }
