@@ -1,7 +1,7 @@
-.profle__add-button {
+.profle__button_add {
     width: 150px;
     height: 50px;
-    background-image: url(../../../images/profile/add-button.svg);
+    background-image: url(../../../../images/profile/add-button.svg);
     background-repeat: no-repeat;
     border: 1px solid #fff;
     background-color: transparent;
@@ -12,12 +12,12 @@
     margin-left: auto;
 }
 
-.profle__add-button:hover {
+.profle__button_add:hover {
     opacity: 0.6;
 }
 
 @media all and (max-width: 610px) {
-    .profle__add-button {
+    .profle__button_add {
         width: 282px;
         margin: 36px 0 0;
     }
