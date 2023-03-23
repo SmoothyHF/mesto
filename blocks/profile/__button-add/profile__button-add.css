@@ -1,4 +1,4 @@
-.profle__button-add {
+.profile__button-add {
     width: 150px;
     height: 50px;
     background-image: url(../../../../images/profile/add-button.svg);
@@ -12,12 +12,12 @@
     margin-left: auto;
 }
 
-.profle__button-add:hover {
+.profile__button-add:hover {
     opacity: 0.6;
 }
 
 @media all and (max-width: 610px) {
-    .profle__button-add {
+    .profile__button-add {
         width: 282px;
         margin: 36px 0 0;
     }
