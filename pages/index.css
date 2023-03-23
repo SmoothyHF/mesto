@@ -10,8 +10,8 @@
 
 /* profile */
 @import url(../blocks/profile/profile.css);
-@import url(../blocks/profile/__button/_add/profle__button_add.css);
-@import url(../blocks/profile/__button/_edit/profile__button_edit.css);
+@import url(../blocks/profile/__button-add/profle__button_add.css);
+@import url(../blocks/profile/__button-edit/profile__button-edit.css);
 @import url(../blocks/profile/__image/profile__image.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__name/profile__name.css);
