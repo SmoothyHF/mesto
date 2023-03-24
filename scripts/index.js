@@ -1,32 +1,32 @@
-const editButton = document.querySelector('.profile__button-edit');
-const editButtonPopup = document.querySelector('.popup_type_edit');
-const editButtonClose = editButtonPopup.querySelector('.popup__close');
-const popupInputName = editButtonPopup.querySelector('.popup__input_type_name');
-const popupInputDescription = editButtonPopup.querySelector('.popup__input_type_description');
-const popupForm = editButtonPopup.querySelector('.popup__form');
+const buttonEdit = document.querySelector('.profile__button-edit');
+const buttonPopupEdit = document.querySelector('.popup');
+const buttonCloseEdit = buttonPopupEdit.querySelector('.popup__close');
+const popupInputName = buttonPopupEdit.querySelector('.popup__input_type_name');
+const popupInputDescription = buttonPopupEdit.querySelector('.popup__input_type_description');
+const popupForm = buttonPopupEdit.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const profileDecsription = document.querySelector('.profile__description');
 
-editButton.addEventListener('click', function() {
-    editButtonPopup.classList.add('popup__open');
 
-    popupInputName.value = profileName.textContent;
-    popupInputDescription.value = profileDecsription.textContent;
-});
+function popupOpen() {
+    buttonPopupEdit.classList.add('popup_opened');
+};
 
-editButtonClose.addEventListener('click', function() {
-    editButtonPopup.classList.remove('popup__open');
-});
+function popupClose() {
+    buttonPopupEdit.classList.remove('popup_opened');
+};
+
+
+
+buttonEdit.addEventListener('click', popupOpen);
+
+buttonCloseEdit.addEventListener('click', popupClose);
 
 popupForm.addEventListener('submit', function(event) {
     event.preventDefault();
-    editButtonPopup.classList.remove('popup__open');
 
-    const name = popupInputName.value;
-    const description = popupInputDescription.value;
+    popupClose();
 
-    profileName.textContent = name;
-    profileDecsription.textContent = description;
-});
-
-
+    profileName.textContent = popupInputName.value;
+    profileDecsription.textContent = popupInputDescription.value;
+})
