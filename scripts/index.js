@@ -10,6 +10,9 @@ const profileDecsription = document.querySelector('.profile__description');
 
 function popupOpen() {
     buttonPopupEdit.classList.add('popup_opened');
+
+    popupInputName.value = profileName.textContent;
+    popupInputDescription.value = profileDecsription.textContent;
 };
 
 function popupClose() {
