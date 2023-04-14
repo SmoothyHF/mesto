@@ -49,4 +49,4 @@
 /* popup modal */
 @import url(../blocks/popup/__modal-image/popup__modal-image.css);
 @import url(../blocks/popup/__modal-caption/popup__modal-caption.css);
-@import url(../blocks/popup/__modal-container/popup__modal-container.css);
+@import url(../blocks/popup/__container/_type_modal/popup__container_type_modal.css);

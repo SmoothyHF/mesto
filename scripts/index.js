@@ -1,28 +1,24 @@
 const buttonEdit = document.querySelector('.profile__button-edit');
-const PopupEdit = document.querySelector('.popup_type_edit');
+const popupEdit = document.querySelector('.popup_type_edit');
 const buttonAdd = document.querySelector('.profile__button-add');
-const PopupAdd = document.querySelector('.popup_type_add');
-const buttonCloseEdit = PopupEdit.querySelector('.popup__close');
-const popupInputName = PopupEdit.querySelector('.popup__input_type_name');
-const popupInputDescription = PopupEdit.querySelector('.popup__input_type_description');
-const popupFormEdit = PopupEdit.querySelector('.popup__form');
+const popupAdd = document.querySelector('.popup_type_add');
+const buttonCloseEdit = popupEdit.querySelector('.popup__close');
+const popupInputName = popupEdit.querySelector('.popup__input_type_name');
+const popupInputDescription = popupEdit.querySelector('.popup__input_type_description');
+const popupFormEdit = popupEdit.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__name');
 const profileDecsription = document.querySelector('.profile__description');
-const buttonCloseAdd = PopupAdd.querySelector('.popup__close');
-const popupFormAdd = PopupAdd.querySelector('.popup__form');
-const popupInputNameAdd = PopupAdd.querySelector('.popup__input_type_name');
-const popupInputLinkAdd = PopupAdd.querySelector('.popup__input_type_description');
+const buttonCloseAdd = popupAdd.querySelector('.popup__close');
+const popupFormAdd = popupAdd.querySelector('.popup__form');
+const popupInputNameAdd = popupAdd.querySelector('.popup__input_type_name');
+const popupInputLinkAdd = popupAdd.querySelector('.popup__input_type_description');
 const cardTemplate = document.querySelector('#card-template');
 const cardGrid = document.querySelector('.elements');
-
 const popupModal = document.querySelector('.popup_type_modal');
-// const buttonImage = cardTemplate.querySelector('.elements__photo-button');
 const popupModalImage = popupModal.querySelector('.popup__modal-image');
 const popupModalCaption = popupModal.querySelector('.popup__modal-caption');
 const buttonCloseModal = popupModal.querySelector('.popup__close');
-
-console.log(popupModal);
-
+const popupContainerModal = popupModal.querySelector('.popup__container_type_modal');
 
 function popupOpen(popup) {
   popup.classList.add('popup_opened');
@@ -32,32 +28,29 @@ function popupClose(popup) {
   popup.classList.remove('popup_opened');
 };
 
-
-
 buttonEdit.addEventListener('click', () => {
-  popupOpen(PopupEdit);
+  popupOpen(popupEdit);
 
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDecsription.textContent;
 });
 
 buttonAdd.addEventListener('click', () => {
-  popupOpen(PopupAdd);
+  popupOpen(popupAdd);
 });
 
-
 buttonCloseEdit.addEventListener('click', () => {
-  popupClose(PopupEdit);
+  popupClose(popupEdit);
 });
 
 buttonCloseAdd.addEventListener('click', () => {
-  popupClose(PopupAdd);
+  popupClose(popupAdd);
 });
 
 popupFormEdit.addEventListener('submit', function(event) {
     event.preventDefault();
 
-    popupClose(PopupEdit);
+    popupClose(popupEdit);
 
     profileName.textContent = popupInputName.value;
     profileDecsription.textContent = popupInputDescription.value;
@@ -76,13 +69,10 @@ const handleAddCard = (event) => {
 
   renderCardElement(createCardElement(initialCardsData));
 
-  popupClose(PopupAdd);
-
+  popupClose(popupAdd);
 };
 
 popupFormAdd.addEventListener('submit', handleAddCard);
-
-
 
 const initialCards = [
     {
@@ -111,6 +101,7 @@ const initialCards = [
     }
   ];
 
+  initialCards.reverse();
 
   // создание карточки
 
@@ -120,8 +111,6 @@ const createCardElement = (initialCardsData) => {
     const cardPhoto = cardElement.querySelector('.elements__photo');
     const cardName = cardElement.querySelector('.elements__text');
     const buttonImage = cardElement.querySelector('.elements__photo-button');
-
-    console.log(buttonImage);
 
     cardName.textContent = initialCardsData.name;
     cardPhoto.src = initialCardsData.link;
@@ -152,15 +141,13 @@ const createCardElement = (initialCardsData) => {
       popupClose(popupModal);
     })
 
-
     return cardElement;
 };
 
-
 const renderCardElement = (cardElement) => {
-    cardGrid.prepend(cardElement);
+  cardGrid.prepend(cardElement);
 };
 
 initialCards.forEach((initialCardsData) => {
-    renderCardElement(createCardElement(initialCardsData));
+  renderCardElement(createCardElement(initialCardsData));
 });
