@@ -22,9 +22,13 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/elements/__text/elements__text.css);
 @import url(../blocks/elements/__photo/elements__photo.css);
+@import url(../blocks/elements/__photo-button/elements__photo-button.css);
 @import url(../blocks/elements/__container/elements__container.css);
 @import url(../blocks/elements/__like/elements__like.css);
 @import url(../blocks/elements/__card/elements__card.css);
+@import url(../blocks/elements/__delete/elements__delete.css);
+@import url(../blocks/elements/__container-image/elements__container-image.css);
+@import url(../blocks/elements/__like-active/elements__like-active.css);
 
 
 /* footer */
@@ -40,3 +44,9 @@
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/_type_modal/popup_type_modal.css);
+
+/* popup modal */
+@import url(../blocks/popup/__modal-image/popup__modal-image.css);
+@import url(../blocks/popup/__modal-caption/popup__modal-caption.css);
+@import url(../blocks/popup/__modal-container/popup__modal-container.css);
