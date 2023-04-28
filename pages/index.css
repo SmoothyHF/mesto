@@ -45,6 +45,10 @@
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/_type_modal/popup_type_modal.css);
+@import url(../blocks/popup/__input-invalid/__input-invalid.css);
+@import url(../blocks/popup/__error-message/popup__error-message.css);
+@import url(../blocks/popup/__error-message__hidden/popup__error-message__hidden.css);
+
 
 /* popup modal */
 @import url(../blocks/popup/__modal-image/popup__modal-image.css);
