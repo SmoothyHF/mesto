@@ -49,7 +49,6 @@
 @import url(../blocks/popup/__error-message/popup__error-message.css);
 @import url(../blocks/popup/__error-message/__hidden/popup__error-message__hidden.css);
 
-
 /* popup modal */
 @import url(../blocks/popup/__modal-image/popup__modal-image.css);
 @import url(../blocks/popup/__modal-caption/popup__modal-caption.css);

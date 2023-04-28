@@ -19,14 +19,18 @@ const popupModalImage = popupModal.querySelector('.popup__modal-image');
 const popupModalCaption = popupModal.querySelector('.popup__modal-caption');
 const buttonCloseModal = popupModal.querySelector('.popup__close');
 const popupContainerModal = popupModal.querySelector('.popup__container_type_modal');
-const buttonPopupSave = document.querySelectorAll('.popup__button-save');
+const buttonPopupEdit = popupEdit.querySelector('.popup__button-save');
+const popups = document.querySelectorAll('.popup');
+const buttonPopupAdd = popupAdd.querySelector('.popup__button-save');
 
 function popupOpen(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEsc)
 };
 
 function popupClose(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc)
 };
 
 buttonEdit.addEventListener('click', () => {
@@ -34,24 +38,26 @@ buttonEdit.addEventListener('click', () => {
 
   popupInputName.value = profileName.textContent;
   popupInputDescription.value = profileDecsription.textContent;
+
+  resetErrors(config, popupFormEdit);
+  resetInputs(config, popupFormEdit);
+  handleButtonValidity(config, popupFormEdit, buttonPopupEdit);
 });
 
 buttonAdd.addEventListener('click', () => {
+
   popupOpen(popupAdd);
-});
 
-buttonCloseEdit.addEventListener('click', () => {
-  popupClose(popupEdit);
-});
-
-buttonCloseAdd.addEventListener('click', () => {
-  popupClose(popupAdd);
+  popupFormAdd.reset();
+  resetErrors(config, popupFormAdd);
+  resetInputs(config, popupFormAdd);
+  setButtonDisable(config, buttonPopupAdd);
 });
 
 popupFormEdit.addEventListener('submit', function (event) {
   event.preventDefault();
 
-  popupClose(popupEdit);
+  popupClose(popupEdit);  
 
   profileName.textContent = popupInputName.value;
   profileDecsription.textContent = popupInputDescription.value;
@@ -138,11 +144,6 @@ const createCardElement = (initialCardsData) => {
     popupModalCaption.textContent = initialCardsData.name;
   });
 
-  buttonCloseModal.addEventListener('click', () => {
-    popupClose(popupModal);
-
-  })
-
   return cardElement;
 };
 
@@ -156,18 +157,17 @@ initialCards.forEach((initialCardsData) => {
 
 // закрытие на оверлей
 
-window.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    popupClose(popupModal);
-    popupClose(popupAdd);
-    popupClose(popupEdit);
-  }
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close')) {
+      popupClose(popup);
+    }
+  })
 })
 
-window.addEventListener('click', function (evt) {
-  if (evt.target.classList.contains('popup')) {
-    popupClose(popupModal);
-    popupClose(popupAdd);
-    popupClose(popupEdit);
+function closeByEsc(evt) {
+  if (evt.key === "Escape") {
+    const openedPopup = document.querySelector('.popup_opened');
+    popupClose(openedPopup);
   }
-});
+} 
