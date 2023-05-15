@@ -41,12 +41,12 @@ export class FormValidator {
         errorElement.textContent = input.validationMessage;
     }
 
-    _setButtonDisable(button) {
-        button.setAttribute('disabled', '');
+    _setButtonDisable() {
+        this._submitButton.setAttribute('disabled', '');
     }
 
-    _setButtonActive(button) {
-        button.removeAttribute('disabled');
+    _setButtonActive() {
+        this._submitButton.removeAttribute('disabled');
     }
 
     _checkFormValidity() {
@@ -61,17 +61,9 @@ export class FormValidator {
         }
     }
 
-    resetInputs = () => {
-        const popupInputs = this._form.querySelectorAll(this._config.inputSelector);
-        popupInputs.forEach((errorInput) => {
-            errorInput.classList.remove(this._config.inputErrorClass);
-        });
-    }
-
-    resetErrors = () => {
-        const popupErrors = this._form.querySelectorAll(this._config.errorSelector);
-        popupErrors.forEach((error) => {
-            error.classList.add(this._config.errorClassHidden);
-        });
+    resetInputErrors () {
+        this._inputs.forEach((error)=> {
+            this._hideError(error);
+        })
     }
 }
