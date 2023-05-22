@@ -37,7 +37,6 @@ buttonAdd.addEventListener('click', () => {
 
 const handleEditProfile = () => {
   userInfoClass.setUserInfo();
-  editWithForm.closePopup();
 }
 
 const editWithForm = new PopupWithForm(popupEdit, handleEditProfile)
@@ -45,7 +44,6 @@ editWithForm.setEventListeners();
 
 const handleAddCard = () => {
   handleGenerateCard({ name: popupInputNameAdd.value, link: popupInputLinkAdd.value });
-  addWithForm.closePopup();
 };
 
 const addWithForm = new PopupWithForm(popupAdd, handleAddCard)
