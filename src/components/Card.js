@@ -1,9 +1,8 @@
 export class Card {
-
-  constructor(data, template, openModal) {
+  constructor(data, templateSelector, handleCardClick) {
     this._data = data;
-    this._template = template;
-    this._openModal = openModal;
+    this._template = templateSelector;
+    this._handleCardClick = handleCardClick;
 
     this._card = this._getTemplate();
     this._cardPhoto = this._card.querySelector('.elements__photo');
@@ -46,8 +45,7 @@ export class Card {
     this._deleteButton.addEventListener('click', this._handleDelete);
     this._likeButton.addEventListener('click', this._handleLike);
     this._imageButton.addEventListener('click', () => {
-      this._openModal(this._data.name, this._data.link);
+      this._handleCardClick(this._data.name, this._data.link);
     });
   }
-
 };
