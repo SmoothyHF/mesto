@@ -6,7 +6,7 @@ export class Card {
 
     this._card = this._getTemplate();
     this._cardPhoto = this._card.querySelector('.elements__photo');
-    this._cardName = this._card.querySelector('.elements__text');
+    this._cardTitle = this._card.querySelector('.elements__text');
     this._deleteButton = this._card.querySelector('.elements__delete');
     this._likeButton = this._card.querySelector('.elements__like');
 
@@ -27,8 +27,8 @@ export class Card {
     this._setEventListeners();
 
     this._cardPhoto.src = this._data.link;
-    this._cardPhoto.alt = this._data.name;
-    this._cardName.textContent = this._data.name;
+    this._cardPhoto.alt = this._data.title;
+    this._cardTitle.textContent = this._data.title;
 
     return this._card;
   }
@@ -45,7 +45,7 @@ export class Card {
     this._deleteButton.addEventListener('click', this._handleDelete);
     this._likeButton.addEventListener('click', this._handleLike);
     this._imageButton.addEventListener('click', () => {
-      this._handleCardClick(this._data.name, this._data.link);
+      this._handleCardClick(this._data.title, this._data.link);
     });
   }
 };
