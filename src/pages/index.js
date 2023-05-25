@@ -2,59 +2,59 @@ import '../pages/index.css'
 import { Card } from "../components/card.js";
 import { FormValidator } from "../components/FormValidator.js";
 import Section from "../components/Section.js";
-import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
 import {
-  initialCards, buttonEdit, buttonAdd, popupAdd,
-  popupFormEdit, profileName, profileDescription,
-  popupFormAdd, popupInputNameAdd, popupInputLinkAdd,
-  cardGrid, popupModal, popupEdit, config
+  initialCards, buttonEdit, buttonAdd, popupAddSelector,
+  profileName, profileDescription, popupModalSelector, 
+  popupEditSelector, config, popupFormEdit, 
+  popupFormAdd, cardGridSelector
 } from "../utils/constants.js";
-
-const userInfoClass = new UserInfo({ nameSelector: profileName, descriptionSelector: profileDescription });
-
-const editPopup = new Popup(popupEdit);
-const addPopup = new Popup(popupAdd);
+ 
+const userInfo = new UserInfo({ nameSelector: profileName, descriptionSelector: profileDescription });
 
 buttonEdit.addEventListener('click', () => {
-  editPopup.openPopup();
+  editWithForm.open();
 
-  userInfoClass.getUserInfo()
+  editWithForm.setInputValues(userInfo.getUserInfo())
 
   profileValidator.resetInputErrors()
   profileValidator.handleButtonValidity()
 });
 
 buttonAdd.addEventListener('click', () => {
-  addPopup.openPopup();
+  addWithForm.open();
 
   cardValidator.resetInputErrors()
   cardValidator.handleButtonValidity()
 });
 
-const handleEditProfile = () => {
-  userInfoClass.setUserInfo();
+const handleEditProfile = (userData) => {
+  userInfo.setUserInfo(userData);
 }
 
-const editWithForm = new PopupWithForm(popupEdit, handleEditProfile)
+const editWithForm = new PopupWithForm(popupEditSelector, handleEditProfile)
 editWithForm.setEventListeners();
 
-const handleAddCard = () => {
-  handleGenerateCard({ name: popupInputNameAdd.value, link: popupInputLinkAdd.value });
+const handleAddCard = (card) => {
+  handleGenerateCard(card);
 };
 
-const addWithForm = new PopupWithForm(popupAdd, handleAddCard)
+const addWithForm = new PopupWithForm(popupAddSelector, handleAddCard)
 addWithForm.setEventListeners()
 
 const cardList = new Section({
   items: initialCards,
   renderer: handleGenerateCard,
-}, cardGrid);
+}, cardGridSelector);
 
 cardList.renderItems();
+
+const modalWithImage = new PopupWithImage(popupModalSelector);
+
+modalWithImage.setEventListeners();
 
 function handleGenerateCard(cardData) {
   const card = new Card(cardData, '#card-template', handleCardClick);
@@ -62,12 +62,8 @@ function handleGenerateCard(cardData) {
 
   cardList.addItem(cardElement);
 
-  const modalWithImage = new PopupWithImage(popupModal, cardData);
-
-  modalWithImage.setEventListeners();
-
-  function handleCardClick() {
-    modalWithImage.openPopup();
+  function handleCardClick(name, link) { 
+    modalWithImage.open(name, link); 
   }
 }
 
