@@ -9,6 +9,7 @@
     opacity: 1;
     border: none;
     padding: 0;
+    margin-bottom: 3px;
 }
 
 .elements__like:hover {

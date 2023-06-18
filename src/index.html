@@ -14,13 +14,15 @@
   
   <main class="content">
     <section class="profile">
+      <button class ="profile__button-avatar" type="button">
       <img class="profile__image" src="<%=require('./images/profile-photo.jpg')%>" alt="аватар">
+      </button>
       <div class="profile__info">
         <div class="profile__container">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button class="profile__button-edit" type="button"></button>
         </div>
-        <p class="profile__description">Исследователь океана</p>
+        <p class="profile__description"></p>
       </div>
       <button class="profile__button-add" type="button"></button>
     </section>
@@ -41,8 +43,8 @@
       <form id="formEdit" class="popup__form" name="form" novalidate>
         <input class="popup__input popup__input_type_name" placeholder="Имя" name="name" required minlength="2" maxlength="40"/>
         <span id="error-name" class="popup__error-message"></span>
-        <input class="popup__input popup__input_type_description" placeholder="О себе" name="description" required minlength="2" maxlength="200"/>
-        <span id="error-description" class="popup__error-message"></span>
+        <input class="popup__input popup__input_type_description" placeholder="О себе" name="about" required minlength="2" maxlength="200"/>
+        <span id="error-about" class="popup__error-message"></span>
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
     </div>
@@ -66,11 +68,14 @@
     <div class="elements__card">
       <div class="elements__container-image">
         <button class="elements__delete" type="button"></button>
-        <button class="elements__photo-button" type="button"><img class="elements__photo"  alt="Сентинский храм"></button>
+        <button class="elements__photo-button" type="button"><img class="elements__photo" alt="Сентинский храм"></button>
       </div>
       <div class="elements__container">
         <h2 class="elements__text">Карачаевск</h2>
-        <button class="elements__like" type="button"></button>
+        <div class="elements__container-likes">
+          <button class="elements__like" type="button"></button>
+          <p class="elements__like-count">0</p>
+        </div>
       </div>
     </div>
   </template>
@@ -83,5 +88,35 @@
     </div>
   </div>
 </body>
+
+<div class="popup popup_type_avatar">
+  <div class="popup__container">
+    <button class="popup__close" type="button"></button>
+    <h2 class="popup__title">Обновить аватар</h2>
+    <form id="formAvatar" class="popup__form" name="form" novalidate>
+      <input class="popup__input popup__input_type_description" name="link" placeholder="Ссылка на картинку" type="url" required/>
+      <span id="error-link" class="popup__error-message"></span>
+      <button class="popup__button-save" type="submit" disabled>Сохранить</button> 
+    </form>
+  </div>
+</div>
+
+<div class="popup popup_type_confirm">
+  <div class="popup__container">
+    <button class="popup__close" type="button"></button>
+    <h2 class="popup__title">Вы уверены?</h2>
+    <form id="formConfirm" class="popup__form" name="form" novalidate>
+      <button class="popup__button-save" type="submit">Да</button> 
+    </form>
+  </div>
+</div>
+
+<!-- <div class="popup popup_type_confirm">
+  <div class="popup__container">
+    <button class="popup__close" type="button"></button>
+    <h2 class="popup__title">Вы уверены?</h2>
+      <button class="popup__button-save" type="submit" disabled>Да</button> 
+  </div>
+</div> -->
   
 </html>
