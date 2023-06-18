@@ -16,6 +16,5 @@ export default class UserInfo {
         this._userName.innerText = name;
         this._userDescription.innerText = about;
         this._avatar.src = avatar;
-        // this._id = _id;
     }
 }

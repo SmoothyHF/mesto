@@ -9,14 +9,12 @@ import Api from "../components/Api.js";
 import PopupWithConfirm from "../components/PopupWithConfirm";
 
 import {
-  initialCards, buttonEdit, buttonAdd, popupAddSelector,
+  buttonEdit, buttonAdd, popupAddSelector,
   profileName, profileDescription, popupModalSelector,
   popupEditSelector, config, popupFormEdit,
   popupFormAdd, cardGridSelector, popupAvatarSelector,
   popupFormAvatar, buttonAvatar,
-  avatar,
-  popupConfirmSelector,
-  buttonDelete
+  avatar, popupConfirmSelector,
 } from "../utils/constants.js";
 
 const api = new Api({
@@ -27,13 +25,18 @@ const api = new Api({
   }
 });
 
-const userInfo = new UserInfo({ nameSelector: profileName, descriptionSelector: profileDescription, avatarSelector: avatar });
+const userInfo = new UserInfo({
+  nameSelector: profileName,
+  descriptionSelector: profileDescription,
+  avatarSelector: avatar
+});
 
 buttonAvatar.addEventListener('click', () => {
   avatarWithForm.open();
 
   avatarValidator.resetInputErrors();
   avatarValidator.handleButtonValidity();
+  avatarWithForm.resetTextSubmitButton();
 })
 
 buttonEdit.addEventListener('click', () => {
@@ -43,6 +46,7 @@ buttonEdit.addEventListener('click', () => {
 
   profileValidator.resetInputErrors()
   profileValidator.handleButtonValidity()
+  editWithForm.resetTextSubmitButton()
 });
 
 const handleEditAvatar = (avatar) => {
@@ -86,11 +90,9 @@ confirmPopup.setEventListeners();
 api.getAppInfo()
   .then(([cards, user]) => {
     cards.reverse();
-    // cardList.renderItems(cardsPromise);
     userInfo.setUserInfo(user);
 
     const cardList = new Section({
-      // items: initialCards,
       items: cards,
       renderer: handleGenerateCard
     }, cardGridSelector);
@@ -98,6 +100,7 @@ api.getAppInfo()
     cardList.renderItems()
 
     function handleDelete(card) {
+      confirmPopup.resetTextSubmitButton();
       confirmPopup.open(() => {
         api.deleteCard(card.cardId)
           .then(() => {
@@ -109,50 +112,29 @@ api.getAppInfo()
       })
     }
 
-    // function like(card) {
-    //   api.likeCard(card.cardId)
-    //   .then((data) => {
-    //     card.updateLikes(data.likes);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    // }
-
-    // function disLike(card) {
-    //   api.disLikeCard(card.cardId)
-    //   .then((data) => {
-    //     card.updateLikes(data.likes)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    // }
-
-    // function handleLikeClick(card) {
-    //   if(card.isLiked) {
-    //     api.disLikeCard(card.cardId)
-    //     .then((data) => {
-    //       card.updateLikes(data.likes)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    //   } else {
-    //     api.likeCard(card.cardId)
-    //     .then((data) => {
-    //       card.updateLikes(data.likes)
-    //     })
-    //     .catch((err) => {
-    //       console.log(err);
-    //     })
-    //   }
-    // }
-
-
+    function handleLikeClick(card) {
+      if (card.isLiked) {
+        api.disLikeCard(card.cardId)
+          .then((data) => {
+            card.updateLikes(data.likes)
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      } else {
+        api.likeCard(card.cardId)
+          .then((data) => {
+            card.updateLikes(data.likes)
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+      }
+    }
 
     function handleGenerateCard(cardData) {
-      const card = new Card(cardData, '#card-template', handleCardClick, handleDelete, { userId: user._id });
+      const card = new Card(cardData, '#card-template', handleCardClick,
+        handleDelete, { userId: user._id }, handleLikeClick);
       const cardElement = card.generateCard();
 
       cardList.addItem(cardElement);
@@ -179,6 +161,7 @@ api.getAppInfo()
 
       cardValidator.resetInputErrors()
       cardValidator.handleButtonValidity()
+      addWithForm.resetTextSubmitButton();
     });
   }).catch((err) => {
     console.log(err);

@@ -1,30 +1,3 @@
-export const initialCards = [
-    {
-        title: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        title: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        title: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        title: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        title: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        title: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
 export const config = {
     inputSelector: '.popup__input',
     submitButtonSelector: '.popup__button-save',
@@ -52,9 +25,8 @@ export const popups = document.querySelectorAll('.popup');
 export const popupModal = document.querySelector('.popup_type_modal');
 export const popupModalImage = popupModal.querySelector('.popup__modal-image');
 export const popupModalCaption = popupModal.querySelector('.popup__modal-caption');
-// export const cardGrid = document.querySelector('#card-template');
 export const buttonDelete = document.querySelector('.elements__delete');
-// export const profileAvatar = document.querySelector('.profile__image');
+export const buttonSave = document.querySelectorAll('.popup__button-save');
 export const popupAddSelector = '.popup_type_add';
 export const popupEditSelector = '.popup_type_edit';
 export const popupAvatarSelector = '.popup_type_avatar';
