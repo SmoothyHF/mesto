@@ -31,6 +31,8 @@ export class FormValidator {
 
         input.classList.remove(this._config.inputErrorClass);
         errorElement.classList.add(this._config.errorClassHidden);
+
+        console.log(errorElement);
     }
 
     _showError(input) {
@@ -39,6 +41,8 @@ export class FormValidator {
         input.classList.add(this._config.inputErrorClass);
         errorElement.classList.remove(this._config.errorClassHidden);
         errorElement.textContent = input.validationMessage;
+
+        // console.log(errorElement);
     }
 
     _setButtonDisable() {
