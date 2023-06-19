@@ -1,5 +1,5 @@
 export class Card {
-  constructor(data, templateSelector, handleCardClick, handleDeleteClick, { userId }, handleLikeClick) {
+  constructor(data, templateSelector, handleCardClick, handleDeleteClick, handleLikeClick, userId) {
     this._data = data;
     this._template = templateSelector;
     this._handleCardClick = handleCardClick;
@@ -37,7 +37,7 @@ export class Card {
     this._cardPhoto.alt = this._data.name;
     this._cardTitle.textContent = this._data.name;
 
-    this.updateLikes(this.likes)
+    this.updateLikes(this.likes);
     return this._card;
   }
 

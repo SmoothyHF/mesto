@@ -12,9 +12,9 @@ import {
   buttonEdit, buttonAdd, popupAddSelector,
   profileName, profileDescription, popupModalSelector,
   popupEditSelector, config, popupFormEdit,
-  popupFormAdd, cardGridSelector, popupAvatarSelector,
+  popupFormAdd, popupAvatarSelector,
   popupFormAvatar, buttonAvatar,
-  avatar, popupConfirmSelector,
+  avatar, popupConfirmSelector, cardGrid
 } from "../utils/constants.js";
 
 const api = new Api({
@@ -87,83 +87,81 @@ avatarValidator.enableValidation();
 const confirmPopup = new PopupWithConfirm(popupConfirmSelector);
 confirmPopup.setEventListeners();
 
+function handleDelete(card) {
+  confirmPopup.resetTextSubmitButton();
+  confirmPopup.open(() => {
+    api.deleteCard(card.cardId)
+      .then(() => {
+        card.handleDelete();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  })
+}
+
+function handleLikeClick(card) {
+  if (card.isLiked) {
+    api.disLikeCard(card.cardId)
+      .then((data) => {
+        card.updateLikes(data.likes)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  } else {
+    api.likeCard(card.cardId)
+      .then((data) => {
+        card.updateLikes(data.likes)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+}
+
+const handleAddCard = (cardData) => {
+  api.addCard(cardData)
+    .then((card) => {
+      handleGenerateCard(card);
+    }).catch((err) => {
+      console.log(err);
+    })
+};
+
+const popupAddCard = new PopupWithForm(popupAddSelector, handleAddCard)
+popupAddCard.setEventListeners()
+
+buttonAdd.addEventListener('click', () => {
+  popupAddCard.open();
+
+  cardValidator.resetInputErrors()
+  cardValidator.handleButtonValidity()
+  popupAddCard.resetTextSubmitButton();
+});
+
+function handleCardClick(name, link) {
+  modalWithImage.open(name, link);
+}
+
+const cardList = new Section((card) => handleGenerateCard(card), cardGrid)
+
+function handleGenerateCard(cardData) {
+  const card = new Card(cardData, '#card-template', handleCardClick,
+    handleDelete, handleLikeClick, userId);
+  const cardElement = card.generateCard();
+
+  cardList.addItem(cardElement);
+}
+
+let userId
+
 api.getAppInfo()
   .then(([cards, user]) => {
     cards.reverse();
     userInfo.setUserInfo(user);
-
-    const cardList = new Section({
-      items: cards,
-      renderer: handleGenerateCard
-    }, cardGridSelector);
-
-    cardList.renderItems()
-
-    function handleDelete(card) {
-      confirmPopup.resetTextSubmitButton();
-      confirmPopup.open(() => {
-        api.deleteCard(card.cardId)
-          .then(() => {
-            card.handleDelete();
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      })
-    }
-
-    function handleLikeClick(card) {
-      if (card.isLiked) {
-        api.disLikeCard(card.cardId)
-          .then((data) => {
-            card.updateLikes(data.likes)
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      } else {
-        api.likeCard(card.cardId)
-          .then((data) => {
-            card.updateLikes(data.likes)
-          })
-          .catch((err) => {
-            console.log(err);
-          })
-      }
-    }
-
-    function handleGenerateCard(cardData) {
-      const card = new Card(cardData, '#card-template', handleCardClick,
-        handleDelete, { userId: user._id }, handleLikeClick);
-      const cardElement = card.generateCard();
-
-      cardList.addItem(cardElement);
-
-      function handleCardClick(name, link) {
-        modalWithImage.open(name, link);
-      }
-    }
-
-    const handleAddCard = (cardData) => {
-      api.addCard(cardData)
-        .then((card) => {
-          handleGenerateCard(card);
-        }).catch((err) => {
-          console.log(err);
-        })
-    };
-
-    const addWithForm = new PopupWithForm(popupAddSelector, handleAddCard)
-    addWithForm.setEventListeners()
-
-    buttonAdd.addEventListener('click', () => {
-      addWithForm.open();
-
-      cardValidator.resetInputErrors()
-      cardValidator.handleButtonValidity()
-      addWithForm.resetTextSubmitButton();
-    });
+    userId = user._id
+    cardList.renderItems(cards);
   }).catch((err) => {
     console.log(err);
   })
-

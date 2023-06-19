@@ -34,12 +34,12 @@ export default class Api {
             .then(this._handleResponse)
     }
 
-    changeAvatar(avatar) {
+    changeAvatar({ avatar }) {
         return fetch(`${this._url}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
             body: JSON.stringify({
-                avatar: avatar.link
+                avatar: avatar
             })
         })
             .then(this._handleResponse)
